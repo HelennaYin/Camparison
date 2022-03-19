@@ -56,3 +56,7 @@ mse_.append(DoKFold(model,X,y))
 y_est = model.predict(X)
 print(mse_)
 ```
+**[27.286248839501887]**
+The mean square error of yhat estimated by random forest regressor and sample y is 27.29
+
+The following lines of code will draw a figure of 
