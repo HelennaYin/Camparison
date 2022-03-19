@@ -6,7 +6,7 @@ Random Forest is an ensemble model made up of an ensemble of decision trees. It 
 
 For the purpose of this project, we will use random forest model from scikit learn library.
 
-```
+```Python
 from sklearn.ensemble import RandomForestRegressor as RFR
 import pandas as pd
 import numpy as np
@@ -18,14 +18,14 @@ from sklearn.preprocessing import StandardScaler as scale
 Import the data.
 
 We will use lstat as the independent varible (x) and cmedv(corrected median values of owner-occupied housing in USD 1000) as the dependent variable(y).
-```
+```Python
 data = pd.read_csv('...path/BostonHousingPrices.csv')
 x = data['lstat'].values
 y = data['cmedv'].values
 ```
 
 First, I want to plot x, y values in a 2-D space
-```
+```Python
 plt.scatter(x,y)
 plt.show()
 ```
@@ -33,7 +33,7 @@ plt.show()
 
 
 To compare the accuracy of the models, I will use the crossvalidated mean  square error between y and the predicted values of y. 
-```
+```Python
 def DoKFold(model,X,y):
     
     mse_list = []
@@ -60,7 +60,7 @@ print(mse_)
 The mean square error of yhat estimated by random forest regressor and sample y is 27.29
 
 The following lines of code will draw a figure of sample data points and the curve of estimated y.
-```
+```Python
 x_sorted = np.sort(x)
 yest_sorted = model.predict(x_sorted.reshape(-1,1))
 plt.figure(figsize=(8,5))
@@ -106,14 +106,14 @@ In the following part, I will build a locally weighted regression algorithm.
 
 First, we need to construct the weighting function, or kernel. The most common kernels are tricubic kernel. In the following lines of kernel function, we also specify the size of the 'neighborhood' of the x observations that are used to build the local regression model. Here, we will threshold the distance of 1, meaning that we only use the points which its distance from the desired data points is less than one to calculate the weights.
 
-```
+```Python
 def tricubic(x):
   return np.where(np.abs(x)>1,0,(1-np.abs(x)**3)**3)
 ```
 
 The following lines of code is the algorithm of one-variable locally weighted regression. We will use the hyperparameter tau to specify the bandwidth of the kernel. To find a better learner, we will adjust the tau value to find the optimal hyperparameter later in this section. The function will initiate the weight by inputing the euclidean distances of the desired x(the ith observation in the whole sample) to other observations to the kernel function and divide it with the hyperparameter. Then, it will loop through x and predict the corresponding y with locally weighted regression. The function will return all estimated y.  
 
-```
+```Python
 from scipy import linalg
 from scipy.interpolate import interp1d
 def lowess_reg(x, y, xnew, kern, tau):
@@ -134,7 +134,7 @@ def lowess_reg(x, y, xnew, kern, tau):
 ```
 We can now test the algorithm on the dataset we imported earlier. We will use cross-validation to evaluate the accuracy of this learning algorithm. Also, the loop over tau_range will find the optimal tau that yields the smallest mean square error of predicted y and sample y.
 
-```
+```Python
 def DoKFold(X,y,tau,kern):
     
     mse_list = []
@@ -167,7 +167,7 @@ The cross validated mean square error of y predicted by locally weighted regress
 
 The following figure shows the curve of predicted y of locally weighted regressor. 
 
-```
+```Python
 x_sorted = np.sort(x)
 yest_sorted = lowess_reg(x, y, x_sorted, tricubic, 1.5)
 
@@ -185,6 +185,7 @@ plt.show()
 In this project, we compare the model accuracy of random forest and locally weighted regression. With a real dataset, it is validated that locally weighted regression will achieve a better result in cross validated mean square error.
 
 
+##
 
 References:
 
@@ -192,4 +193,4 @@ https://towardsdatascience.com/loess-373d43b03564
 
 https://xavierbourretsicotte.github.io/loess.html
 
-Ho, Tin Kam (1995). Random Decision Forests
+_Ho, Tin Kam (1995)_. Random Decision Forests
