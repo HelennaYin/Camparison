@@ -29,7 +29,7 @@ First, I want to plot x, y values in a 2-D space
 plt.scatter(x,y)
 plt.show()
 ```
-<img src="Screen Shot 2022-03-18 at 10.11.33 PM.png" width="400" height="250" alt="hi" class="inline"/>
+<img src="sample.png" width="400" height="250" alt="hi" class="inline"/>
 
 
 To compare the accuracy of the models, I will use the crossvalidated mean  square error between y and the predicted values of y. 
@@ -77,7 +77,7 @@ plt.legend()
 plt.title('Data Points and Random Forest Learner')
 plt.show()
 ```
-<img src="Screen Shot 2022-03-18 at 10.24.00 PM.png" width="800" height="500" alt="hi" class="inline"/>
+<img src="RF.png" width="800" height="500" alt="hi" class="inline"/>
 
 ## Locally Weighted Regression
 Locally Weighted Regression, or LOESS, is a non-parametric regression model.
@@ -88,3 +88,16 @@ We sent the Euclidean distances between the desired observation and points in th
 
 For a linear regression algorithm, we compute  𝛽  using the normal equation:
 
+<img src="equation1.png" width="200" height="50" alt="hi" class="inline"/>
+
+𝛽 is a vector of all parameters, X is a matrix with all the observations.
+
+For locally weighted regression, we will add the weighting terms into the noraml equation:
+
+<img src="equation2.png" width="250" height="50" alt="hi" class="inline"/>
+
+W is a matrix with all the weights on the main diagonal. All other elements of W are 0.
+
+The estimated y will be:
+
+<img src="equation3.png" width="250" height="50" alt="hi" class="inline"/>
