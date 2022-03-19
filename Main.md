@@ -77,3 +77,4 @@ plt.legend()
 plt.title('Data Points and Random Forest Learner')
 plt.show()
 ```
+<img src="Screen Shot 2022-03-18 at 10.24.00 PM.png" width="800" height="500" alt="hi" class="inline"/>
