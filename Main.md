@@ -59,4 +59,21 @@ print(mse_)
 **[27.286248839501887]**
 The mean square error of yhat estimated by random forest regressor and sample y is 27.29
 
-The following lines of code will draw a figure of 
+The following lines of code will draw a figure of sample data points and the curve of estimated y.
+```
+x_sorted = np.sort(x)
+yest_sorted = model.predict(x_sorted.reshape(-1,1))
+plt.figure(figsize=(8,5))
+plt.scatter(x,y,facecolors = 'none', edgecolor = 'darkblue', label = 'Sample Data Points')
+plt.plot(x_sorted,yest_sorted,color='red',lw=2,label = 'Random Forest')
+plt.legend()
+plt.title('Data Points and Random Forest Learner')
+plt.show()x_sorted = np.sort(x)
+yest_sorted = model.predict(x_sorted.reshape(-1,1))
+plt.figure(figsize=(8,5))
+plt.scatter(x,y,facecolors = 'none', edgecolor = 'darkblue', label = 'Sample Data Points')
+plt.plot(x_sorted,yest_sorted,color='red',lw=2,label = 'Random Forest')
+plt.legend()
+plt.title('Data Points and Random Forest Learner')
+plt.show()
+```
