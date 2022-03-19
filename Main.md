@@ -181,9 +181,15 @@ plt.show()
 <img src="LWR.png" width="800" height="500" alt="hi" class="inline"/>
 
 ## Conclusion
+
 In this project, we compare the model accuracy of random forest and locally weighted regression. With a real dataset, it is validated that locally weighted regression will achieve a better result in cross validated mean square error.
 
+
+
 References:
+
 https://towardsdatascience.com/loess-373d43b03564
+
 https://xavierbourretsicotte.github.io/loess.html
+
 Ho, Tin Kam (1995). Random Decision Forests
