@@ -163,7 +163,7 @@ print(np.min(MSE_Lowess))
 
 **26.97001081825933**
 
-The cross validated mean square error of y predicted by locally weighted regression and sample data is 26.97. Compared to that of y predicted by random forest, 27.29, locally weighted regressor achieved the better result.
+The cross validated mean square error of y predicted by locally weighted regression and sample data is 26.97. Compared to that of y predicted by random forest, 27.29, **locally weighted regressor achieved the better result**.
 
 The following figure shows the curve of predicted y of locally weighted regressor. 
 
@@ -182,7 +182,7 @@ plt.show()
 
 ## Conclusion
 
-In this project, we compare the model accuracy of random forest and locally weighted regression. With a real dataset, it is validated that locally weighted regression will achieve a better result in cross validated mean square error.
+In this project, we compare the model accuracy of random forest and locally weighted regression. With a real dataset, the cross validated mean square error of random forest regressor is 27.29, the cross validated mean square error of loacally weighted regression is 26.97. Since LWR achieved a lower MSE, locally weighted regressor outperformed random forest regressor. 
 
 
 ##
