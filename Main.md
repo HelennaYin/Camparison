@@ -78,3 +78,13 @@ plt.title('Data Points and Random Forest Learner')
 plt.show()
 ```
 <img src="Screen Shot 2022-03-18 at 10.24.00 PM.png" width="800" height="500" alt="hi" class="inline"/>
+
+## Locally Weighted Regression
+Locally Weighted Regression, or LOESS, is a non-parametric regression model.
+
+For each data points, we create a weight. The weight is decided by the data points near the desired data points. To conduct locally weighted regression analysis, we need to set up the 'neighborhood' of nearby data.
+
+We sent the Euclidean distances between the desired observation and points in the neighborhood into a weighting function. The further the data point from the desired point, the less the weight is. We denote the output weight as W.
+
+For a linear regression algorithm, we compute  𝛽  using the normal equation:
+
