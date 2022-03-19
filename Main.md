@@ -7,6 +7,7 @@ Random Forest is an ensemble model made up of an ensemble of decision trees. It 
 For the purpose of this project, we will use random forest model from scikit learn library.
 
 ```
+from sklearn.ensemble import RandomForestRegressor as RFR
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -32,3 +33,26 @@ plt.show()
 
 
 To compare the accuracy of the models, I will use the crossvalidated mean  square error between y and the predicted values of y. 
+```
+def DoKFold(model,X,y):
+    
+    mse_list = []
+    kf = KFold(n_splits=10,random_state=123,shuffle = True)
+
+    for idxtrain,idxtest in kf.split(X):
+        Xtrain = X[idxtrain]
+        Xtest = X[idxtest]
+        ytrain = y[idxtrain]
+        ytest = y[idxtest]
+      
+        model.fit(Xtrain,ytrain)
+        mse_list.append(mse(ytest,model.predict(Xtest)))
+        
+    return np.mean(mse_list)
+X = x.reshape(-1,1)
+mse_ = []
+model = RFR(max_depth = 3,random_state=146)
+mse_.append(DoKFold(model,X,y))
+y_est = model.predict(X)
+print(mse_)
+```
