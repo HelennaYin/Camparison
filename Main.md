@@ -159,3 +159,23 @@ for i in tau_range:
 print(tau_range[np.where(MSE_Lowess==np.min(MSE_Lowess))])
 print(np.min(MSE_Lowess))
 ```
+**array([1.5])**
+
+**26.97001081825933**
+
+The cross validated mean square error of y predicted by locally weighted regression and sample data is 26.97. Compared to that of y predicted by random forest, 27.29, locally weighted regressor achieved the better result.
+
+The following figure shows the curve of predicted y of locally weighted regressor. 
+
+```
+x_sorted = np.sort(x)
+yest_sorted = lowess_reg(x, y, x_sorted, tricubic, 1.5)
+
+plt.figure(figsize=(8,5))
+plt.scatter(x,y,facecolors = 'none', edgecolor = 'darkblue', label = 'Sample Data Points')
+plt.plot(x_sorted,yest_sorted,color='red',lw=2,label = 'Locally Weighted Regression')
+plt.legend()
+plt.title('Data Points and Locally Weighted Regression')
+plt.show()
+```
+
