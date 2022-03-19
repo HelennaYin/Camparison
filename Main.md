@@ -101,3 +101,61 @@ W is a matrix with all the weights on the main diagonal. All other elements of W
 The estimated y will be:
 
 <img src="equation3.png" width="250" height="50" alt="hi" class="inline"/>
+
+In the following part, I will build a locally weighted regression algorithm.
+
+First, we need to construct the weighting function, or kernel. The most common kernels are tricubic kernel. In the following lines of kernel function, we also specify the size of the 'neighborhood' of the x observations that are used to build the local regression model. Here, we will threshold the distance of 1, meaning that we only use the points which its distance from the desired data points is less than one to calculate the weights.
+
+```
+def tricubic(x):
+  return np.where(np.abs(x)>1,0,(1-np.abs(x)**3)**3)
+```
+
+The following lines of code is the algorithm of one-variable locally weighted regression. We will use the hyperparameter tau to specify the bandwidth of the kernel. To find a better learner, we will adjust the tau value to find the optimal hyperparameter later in this section. The function will initiate the weight by inputing the euclidean distances of the desired x(the ith observation in the whole sample) to other observations to the kernel function and divide it with the hyperparameter. Then, it will loop through x and predict the corresponding y with locally weighted regression. The function will return all estimated y.  
+
+```
+from scipy import linalg
+from scipy.interpolate import interp1d
+def lowess_reg(x, y, xnew, kern, tau):
+    n = len(x)
+    yest = np.zeros(n)
+
+    w = np.array([kern((x - x[i])/(2*tau)) for i in range(n)])     
+    
+    for i in range(n):
+        weights = w[:, i]
+        b = np.array([np.sum(weights * y), np.sum(weights * y * x)])
+        A = np.array([[np.sum(weights), np.sum(weights * x)],
+                    [np.sum(weights * x), np.sum(weights * x * x)]])
+        theta, res, rnk, s = linalg.lstsq(A, b)
+        yest[i] = theta[0] + theta[1] * x[i] 
+    f = interp1d(x, yest,fill_value='extrapolate')
+    return f(xnew)
+```
+We can now test the algorithm on the dataset we imported earlier. We will use cross-validation to evaluate the accuracy of this learning algorithm. Also, the loop over tau_range will find the optimal tau that yields the smallest mean square error of predicted y and sample y.
+
+```
+def DoKFold(X,y,tau,kern):
+    
+    mse_list = []
+    kf = KFold(n_splits=10,random_state=123,shuffle = True)
+
+    for idxtrain,idxtest in kf.split(X):
+        Xtrain = X[idxtrain]
+        Xtest = X[idxtest]
+        ytrain = y[idxtrain]
+        ytest = y[idxtest]
+
+        yest = lowess_reg(Xtrain, ytrain, Xtest,kern, tau)
+        mse_list.append(mse(ytest,yest))
+    return np.mean(mse_list)
+ 
+ tau_range = np.linspace(0.1,2,20)
+ 
+MSE_Lowess = []
+for i in tau_range:
+  MSE_Lowess.append(DoKFold(x,y,i,tricubic))
+
+print(tau_range[np.where(MSE_Lowess==np.min(MSE_Lowess))])
+print(np.min(MSE_Lowess))
+```
