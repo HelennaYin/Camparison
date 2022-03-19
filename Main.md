@@ -31,4 +31,4 @@ plt.show()
 <img src="Screen Shot 2022-03-18 at 10.11.33 PM.png" width="400" height="250" alt="hi" class="inline"/>
 
 
-
+To compare the accuracy of the models, I will use the crossvalidated mean  square error between y and the predicted values of y. 
