@@ -186,3 +186,4 @@ In this project, we compare the model accuracy of random forest and locally weig
 References:
 https://towardsdatascience.com/loess-373d43b03564
 https://xavierbourretsicotte.github.io/loess.html
+Ho, Tin Kam (1995). Random Decision Forests
