@@ -186,7 +186,6 @@ In this project, we compare the model accuracy of random forest and locally weig
 
 
 ##
-
 References:
 
 https://towardsdatascience.com/loess-373d43b03564
